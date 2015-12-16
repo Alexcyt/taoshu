@@ -1,14 +1,39 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title><%= full_title(yield(:title)) %></title>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-    <%= csrf_meta_tags %>
-</head>
-<body>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta  name="viewport" content="width=device-width, initial-scale=1">
 
-<%= yield %>
+        <title><%= full_title(yield(:title)) %></title>
 
-</body>
+        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+        <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+        <%= csrf_meta_tags %>
+
+        <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/htnl5.js"></script>
+        <![endif]-->
+
+        <!--[if lt IE 9] >
+        < script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js" >
+        < /script >
+        < script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js" >
+        < /script >
+        < ![endif]-->
+    </head>
+
+    <body role="document">
+        <%= render 'layouts/header' %>
+        <div class="container theme-showcase" role="main">
+            <% flash.each do |key, value| %>
+                <%= content_tag(:div, value, class: "alert alert-#{key}") %>
+            <% end %>
+            <%= yield %>
+            <%= render 'layouts/footer' %>
+            <%= debug(params) if Rails.env.development? %>
+        </div>
+    </body>
 </html>
