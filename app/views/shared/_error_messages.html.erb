@@ -1,0 +1,10 @@
+<% if object.errors.any? %>
+    <div class="alert alert-danger">
+        您提交的信息存在以下<strong><%= object.errors.count %>个错误</strong>:
+        <ul>
+            <% object.errors.full_messages.each do |msg| %>
+                <li>* <%= msg %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
