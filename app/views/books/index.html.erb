@@ -1,0 +1,36 @@
+<% provide(:title, "所有书籍") %>
+<h1>所有书籍</h1>
+
+<div class="row">
+    <div class="my_pagination col-md-10 col-md-offset-1">
+        <%= will_paginate @books, previous_label: '<< 上一页', next_label: '下一页 >>' %>
+    </div>
+    <ul class="booklist">
+        <% @books.each do |book| %>
+            <li class="col-md-5 col-sm-12">
+                <div class="cover col-sm-3">
+                    <%= link_to(book, target: "_blank") do %>
+                        <%= image_tag book.cover, width: "80", height: "100", alt: book.name %>
+                    <% end %>
+                </div>
+                <div class="col-sm-6">
+                    <div class="name">
+                        <%= link_to book.name, book, target: "_blank" %>
+                    </div>
+                    <div class="author">
+                        <%= "作者: #{book.author}" %>
+                    </div>
+                    <div class="rating">
+                        <%= "评分: (0人评价) 0.0" %>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <%= link_to "加入书架", '#', class: "btn btn-small btn-primary" %>
+                </div>
+            </li>
+        <% end %>
+    </ul>
+    <div class="my_pagination col-md-10 col-md-offset-1">
+        <%= will_paginate @books, previous_label: '<< 上一页', next_label: '下一页 >>' %>
+    </div>
+</div>

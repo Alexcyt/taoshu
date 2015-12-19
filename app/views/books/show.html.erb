@@ -1,0 +1,60 @@
+<% provide(:title, @book.name) %>
+
+<div class="book_info row">
+    <div class="info_item col-md-12">
+        <div class="book_intro col-md-6">
+            <div class="cover col-sm-4">
+                <%= link_to(@book.source, target: "_blank") do %>
+                    <%= image_tag @book.cover, width: "120", height: "150", alt: @book.name %>
+                <% end %>
+            </div>
+            <div class="intro_detail col-md-8">
+                <div class="book_name">
+                    <%= link_to @book.name, @book.source, target: "_blank" %>
+                </div>
+                <div>
+                    <%= "作者: #{@book.author}" %>
+                </div>
+            </div>
+        </div>
+        <div class="rating col-md-6">
+            评分部分暂时空着
+        </div>
+    </div>
+    <div class="info_item col-md-12">
+        <div class="btn-group">
+            <%= link_to "阅读本书", '#', class: "btn btn-small btn-primary" %>
+        </div>
+        <div class="btn-group">
+            <%= link_to "加入书架", '#', class: "btn btn-small btn-primary" %>
+        </div>
+        <div class="btn-group">
+            <%= link_to "加入推书单", '#', class: "btn btn-small btn-primary" %>
+        </div>
+        <div class="btn-group">
+            <%= link_to "写书评", '#', class: "btn btn-small btn-primary" %>
+        </div>
+    </div>
+    <div class="info_item col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">本书简介</h3>
+            </div>
+            <div class="panel-body">
+                <%= @book.desc %>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="comment row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">本书书评</h3>
+            </div>
+            <div class="panel-body">
+                暂时没有书评
+            </div>
+        </div>
+    </div>
+</div>

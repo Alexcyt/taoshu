@@ -78,12 +78,7 @@ footer {
 
 aside {
   section {
-    padding: 10px 0;
-    border-top: 1px solid #999;
-    &:first-child {
-      border: 0;
-      padding-top: 0;
-    }
+    padding: 5px 0;
     span {
       display: block;
       margin-bottom: 3px;
@@ -123,3 +118,61 @@ form {
   margin: 10px;
 }
 
+
+/*booklist*/
+
+ul.booklist {
+  list-style: none;
+  li {
+    margin: 10px 30px;
+    position: relative;
+    padding: 10px;
+    background: #f5f5f5;
+    color: #666;
+    word-wrap: break-word;
+    div.author {
+      margin-top: 10px;
+    }
+  }
+}
+
+
+/*book page*/
+
+div.info_item {
+  margin: 5px 0;
+  div.book_name {
+    margin-bottom: 10px;
+  }
+}
+
+
+/*user_head*/
+
+div.user_head {
+  background-image: url("head.jpg");
+  margin-bottom: 20px;
+  .focus_button {
+    margin-top: 20px;
+  }
+  aside.col-md-9 {
+    position: relative;
+    height: 150px;
+    ul.user_menu {
+      position: absolute;
+      bottom: 5px;
+      right: 10px;
+    }
+  }
+}
+
+
+/*user_body*/
+
+div.user_body {
+  section {
+    text-align: center;
+    border-top: 1px solid #DDD;
+    margin: 5px 0;
+  }
+}
