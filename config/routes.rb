@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   get '/help' => 'static_pages#help'
   get '/about' => 'static_pages#about'
 
-  resources :users
+  resources :users do
+    member do
+      get :shelfbooks
+    end
+  end
   get '/signup' => 'users#new'
 
   resources :sessions, only: [:new, :create, :destroy]
@@ -12,6 +16,8 @@ Rails.application.routes.draw do
   delete '/signout' => 'sessions#destroy'
 
   resources :books, only: [:index, :show] #update?
+
+  resources :shelf_books, only: [:create, :destroy]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

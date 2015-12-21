@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   before_save { email.downcase! }
   before_create :create_remember_token
 
+  has_many :shelf_books, dependent: :destroy
+  has_many :books, through: :shelf_books, source: :book
 
   def User.new_remember_token
     SecureRandom.urlsafe_base64
@@ -18,6 +20,20 @@ class User < ActiveRecord::Base
 
   def User.encrypt(token)
     Digest::SHA1.hexdigest(token.to_s)
+  end
+
+  # 书架
+
+  def have_followed_book?(book)
+    self.shelf_books.find_by(book_id: book.id)
+  end
+
+  def follow_book!(book)
+    self.shelf_books.create!(book_id: book.id)
+  end
+
+  def unfollow_book!(book)
+    self.shelf_books.find_by(book_id: book.id).destroy
   end
 
   private

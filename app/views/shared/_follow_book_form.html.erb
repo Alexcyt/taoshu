@@ -1,0 +1,7 @@
+<div id=<%= "follow_book#{object.id}_form" %>>
+    <% if signed_in? && current_user.have_followed_book?(object) %>
+        <%= render 'shared/unfollow_book', object: object %>
+    <% else %>
+        <%= render 'shared/follow_book', object: object %>
+    <% end %>
+</div>

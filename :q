@@ -24,7 +24,7 @@
                         <%= "评分: (0人评价) 0.0" %>
                     </div>
                 </div>
-                <div class="bookshelf col-sm-3">
+                <div class="col-sm-3">
                     <%= render 'shared/follow_book_form', object: book %>
                 </div>
             </li>
