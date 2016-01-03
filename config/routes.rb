@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   resources :books, only: [:index, :show] #update?
 
   resources :shelf_books, only: [:create, :destroy]
+
+  resources :ratings, only: [:create, :update]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

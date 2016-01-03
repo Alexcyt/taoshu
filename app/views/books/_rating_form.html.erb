@@ -1,0 +1,7 @@
+<span id="rating_book_form" style="font-size:21px;padding:0px;" class="col-sm-3">
+    <% if signed_in? && current_user.have_rating_book?(@book) %>
+        <%= render 'books/update_rating' %>
+    <% else %>
+        <%= render 'books/create_rating' %>
+    <% end %>
+</span>

@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   has_many :shelf_books, dependent: :destroy
   has_many :books, through: :shelf_books, source: :book
 
+  has_many :ratings, dependent: :destroy
+
   def User.new_remember_token
     SecureRandom.urlsafe_base64
   end
@@ -34,6 +36,25 @@ class User < ActiveRecord::Base
 
   def unfollow_book!(book)
     self.shelf_books.find_by(book_id: book.id).destroy
+  end
+
+  # 评分
+
+  def have_rating_book?(book)
+    self.ratings.find_by(book_id: book.id)
+  end
+
+  def rating_book!(book, score)
+    self.ratings.create!(book_id: book.id, score: score)
+  end
+
+  def change_rating_book!(book, score)
+    tmp_rating = self.ratings.find_by(book_id: book.id)
+    tmp_rating.update_attribute(:score, score)
+  end
+
+  def my_rating(book)
+    self.ratings.find_by(book_id: book.id).score
   end
 
   private

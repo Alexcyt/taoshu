@@ -1,0 +1,124 @@
+<div class="clearfix">
+    <div class="visible-xs block-height">
+    </div>
+    <div class="clearfix">
+        <div class="ys-book-averrate xs-align-left">
+            <span style="font-size:20px;color:#4d7bd6">
+                &nbsp;
+                <% get_rating_data(@book) %>
+                <% total_score = @avg_rating  %>
+                <% for i in 1..5 %>
+                    <% if total_score >= i*2 %>
+                        <i class="fa fa-star"></i>
+                    <% elsif total_score > (i-1)*2 %>
+                        <i class="fa fa-star-half-o"></i>
+                    <% else %>
+                        <i class="fa fa-star-o"></i>
+                    <% end %>
+                <% end %>
+                &nbsp;<%= total_score %>
+            </span>
+            <small>
+                &nbsp;&nbsp;本书共有<strong style="color:#4d7bd6;"><%= @rating_counts %></strong>个评价
+            </small>
+        </div>
+    </div>
+    <div class="rate-bar-chart">
+        <% for i in 0..4 %>
+            <div class="progress">
+                <% if @scores[i] < 10 %>
+                    <div style=<%= "width:#{@scores[i]}%" %> class="progress-bar progress-bar-primate">
+                    </div>
+                    <div style="width:25%" class="progress-bar progress-bar-hidden">
+                        <%= "#{@scores[i]}%" %>
+                    </div>
+                <% else %>
+                    <div style=<%= "width:#{@scores[i]}%" %> class="progress-bar progress-bar-primate">
+                        <%= "#{@scores[i]}%" %>
+                    </div>
+                <% end %>
+            </div>
+        <% end %>
+        <div style="line-height:40px;" class="xs-align-left">
+            <span style="font-size:18px;padding:0px;" class="col-sm-2 col-sm-offset-4">
+                我的评分: &nbsp;
+            </span>
+            <span id="myrate" style="font-size:21px;padding:0px;" class="col-sm-3">
+                <% if signed_in? && current_user.have_rating_book?(@book) %>
+                    <% myScore = current_user.my_rating(@book) %>
+                    <% for i in 1..5 %>
+                        <% if i*2 <= myScore %>
+                            <i style="color: rgb(77, 123, 214);" class="fa fa-star"
+                                onmouseover="togreen(<%= i %>)" onmouseout="toblue(<%= myScore/2 %>)" onclick="rating(<%= i %>)"></i>
+                        <% else %>
+                            <i style="color: rgb(204, 204, 204);" class="fa fa-star"
+                                onmouseover="togreen(<%= i %>)" onmouseout="toblue(<%= myScore/2 %>)" onclick="rating(<%= i %>)"></i>
+                        <% end %>
+                    <% end %>
+                <% else %>
+                    <% for i in 1..5 %>
+                        <i style="color: rgb(204, 204, 204);" class="fa fa-star"
+                            onmouseover="togreen(<%= i %>)" onmouseout="togray()" onclick="rating(<%= i %>)"></i>
+                    <% end %>
+                <% end %>
+            </span>
+            <script type="text/javascript">
+                window.onload = function() {
+                    var submit_button = document.getElementById("rating_button");
+                    submit_button.disabled = true;
+                }
+                function togreen(index)
+                {
+                    var allstars = document.getElementById("myrate");
+                    var starlists = allstars.getElementsByTagName("i");
+                    for (var i = 0; i < starlists.length; i++) {
+                        if (i < index)
+                            starlists[i].style = "color: rgb(97, 177, 0);";
+                        else
+                            starlists[i].style="color: rgb(204, 204, 204);";
+                    }
+                }
+
+                function togray()
+                {
+                    var allstars = document.getElementById("myrate");
+                    var starlists = allstars.getElementsByTagName("i");
+                    for (var i = 0; i < starlists.length; i++)
+                        starlists[i].style = "color: rgb(204, 204, 204);";
+                }
+
+                function toblue(index)
+                {
+                    var allstars = document.getElementById("myrate");
+                    var starlists = allstars.getElementsByTagName("i");
+                    for (var i = 0; i < starlists.length; i++) {
+                        if (i < index)
+                            starlists[i].style = "color: rgb(77, 123, 214);";
+                        else
+                            starlists[i].style="color: rgb(204, 204, 204);";
+                    }
+                }
+
+                function rating(index)
+                {
+                    var allstars = document.getElementById("myrate");
+                    var starlists = allstars.getElementsByTagName("i");
+                    for (var i = 0; i < starlists.length; i++) {
+                        if (i < index)
+                            starlists[i].style = "color: rgb(97, 177, 0);";
+                        else
+                            starlists[i].style = "color: rgb(204, 204, 204)";
+                        starlists[i].removeAttribute("onmouseover");
+                        starlists[i].removeAttribute("onmouseout");
+                    }
+                    var score_node = document.getElementById("rating_score");
+                    if ( score_node != null)
+                        score_node.setAttribute("value", 2*index);
+                    var submit_button = document.getElementById("rating_button");
+                    submit_button.removeAttribute("disabled");
+                }
+            </script>
+            <%= render 'books/rating_form' %>
+        </div>
+    </div>
+</div>

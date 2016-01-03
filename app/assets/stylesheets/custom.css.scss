@@ -188,3 +188,23 @@ div.user_body {
     margin: 5px 0;
   }
 }
+
+
+/*rating*/
+
+.xs-align-left {
+    text-align: right;
+}
+.ys-book-averrate {
+    height: 30px;
+    line-height: 30px;
+}
+.rate-bar-chart .progress {
+    background: #EEE none repeat scroll 0% 0%;
+    margin-bottom: 7px;
+}
+.rate-bar-chart .progress .progress-bar-hidden {
+    background-color: transparent;
+    color: #000;
+    box-shadow: none;
+}
