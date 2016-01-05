@@ -1,0 +1,39 @@
+<% provide(:title, "所有书单") %>
+<h1>所有书单</h1>
+<div class="row" style="margin-top: 10px;">
+    <aside class="col-md-9">
+        <div style="text-align:right;">
+            <%= will_paginate @booklists, previous_label: '<< 上一页', next_label: '下一页 >>' %>
+        </div>
+        <ul class="shudan">
+            <% @booklists.each do |booklist| %>
+                <section>
+                    <li class="col-sm-12">
+                        <div class="col-sm-9 shudan_title">
+                            <p><%= link_to booklist.title, booklist, target: "_blank" %></p>
+                            <p>书单标题</p>
+                        </div>
+                        <div class="col-sm-1">
+                            <p><%= link_to booklist.user.name, booklist.user, target: "_blank" %></p>
+                            <p>作者</p>
+                        </div>
+                        <div class="col-sm-1">
+                            <p>99</p>
+                            <p>本书</p>
+                        </div>
+                        <div class="col-sm-1">
+                            <p>100</p>
+                            <p><%= link_to "关注", '#', class: "btn btn-primary btn-xs" %></p>
+                        </div>
+                    </li>
+                </section>
+            <% end %>
+        </ul>
+        <div style="text-align:right;">
+            <%= will_paginate @booklists, previous_label: '<< 上一页', next_label: '下一页 >>' %>
+        </div>
+    </aside>
+    <aside class="col-md-3">
+        <%= link_to "新建推书单", new_booklist_path, class: "btn btn-primary btn-small btn-block" %>
+    </aside>
+</div>

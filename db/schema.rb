@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160102034947) do
+ActiveRecord::Schema.define(version: 20160104102610) do
+
+  create_table "booklists", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.string   "desc"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "booklists", ["user_id", "created_at"], name: "index_booklists_on_user_id_and_created_at"
 
   create_table "books", force: :cascade do |t|
     t.string   "name"

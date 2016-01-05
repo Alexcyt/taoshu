@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
-  before_action :signed_in_user, only: [:edit, :update, :show]
-  before_action :correct_user, only: [:edit, :update, :show]
+  before_action :signed_in_user, only: [:edit, :update]
+  before_action :correct_user, only: [:edit, :update]
 
   def new
     @user = User.new
@@ -42,6 +42,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def shelfbooks
+    @user = User.find(params[:id])
+    @books = @user.books.paginate(page: params[:page], per_page: 10)
+    render 'show'
+  end
+
+  def my_booklists
+    @user = User.find(params[:id])
+    @my_booklists = @user.booklists.paginate(page: params[:page], per_page: 10)
+  end
+
   private
 
     def user_params
@@ -52,8 +63,4 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :email, :old_password, :new_password, :new_password_confirmation)
     end
 
-    def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_path) unless current_user?(@user)
-    end
 end

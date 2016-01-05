@@ -1,0 +1,69 @@
+<% provide(:title, @booklist.title) %>
+<div class="row">
+    <div class="col-md-9">
+        <div>
+            <h2><%= @booklist.title %></h2>
+        </div>
+        <div style="text-align: right;">
+            <% if current_user?(@booklist.user) %>
+                <div class="col-sm-6 col-sm-offset-6">
+                    <div class="btn-group">
+                        <%= link_to "编辑推书单", edit_booklist_path(@booklist), class: "btn btn-primary btn-small" %>
+                    </div>
+                    <div class="btn-group">
+                        <%= link_to "添加书籍", '#', class: "btn btn-primary btn-small" %>
+                    </div>
+                    <div class="btn-group">
+                        <%= link_to "删除推书单", @booklist, class: "btn btn-danger btn-small", method: :delete,
+                            data: { confirm: "确定删除该推书单?" } %>
+                    </div>
+                </div>
+            <% else %>
+                <div class="col-sm-3 col-sm-offset-9">
+                    <%= link_to "关注书单", '#', class: "btn btn-primary btn-small" %>
+                </div>
+            <% end %>
+        </div>
+        <div>
+            暂时没有书籍
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading">书单作者</div>
+            <div class="panel-body">
+                <div style="text-align: center;">
+                    <div class="col-xs-4">
+                        <%= link_to "#{@booklist.user.name}", @booklist.user %>
+                    </div>
+                    <div class="col-xs-8">
+                        <%= link_to "关注Ta", '#', class: "btn btn-success btn-small" %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                本书单共有99本书, 100名关注者
+            </div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                书单简介
+            </div>
+            <div class="panel-body">
+                <%= @booklist.desc %>
+            </div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                该用户的其他书单
+            </div>
+            <div class="panel-body rest_booklists">
+                <% @booklist.user.booklists.limit(10).each do |r| %>
+                    <div><%= link_to "#{r.title}", r %></div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>

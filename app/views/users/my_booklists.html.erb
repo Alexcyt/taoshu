@@ -16,8 +16,8 @@
         </aside>
         <aside class="col-md-9">
             <ul class="nav nav-pills user_menu">
-                <li class="active"><%= link_to "个人书架", shelfbooks_user_path(@user) %></li>
-                <li><%= link_to "我的书单", my_booklists_user_path(@user) %></li>
+                <li><%= link_to "个人书架", shelfbooks_user_path(@user) %></li>
+                <li class="active"><%= link_to "我的书单", my_booklists_user_path(@user) %></li>
                 <li><%= link_to "关注书单", '#' %></li>
                 <li><%= link_to "粉丝", '#' %></li>
                 <li><%= link_to "关注", '#' %></li>
@@ -49,34 +49,28 @@
             </section>
         </aside>
         <aside class="col-md-8">
-            <ul class="shelflist">
-                <% @books.each do |book| %>
-                    <section><li class="col-sm-12">
-                        <div class="cover col-sm-2">
-                            <%= link_to(book, target: "_blank") do %>
-                                <%= image_tag book.cover, width: "40", height: "50", alt: book.name %>
-                            <% end %>
-                        </div>
-                        <div class="col-sm-7">
-                            <div class="name">
-                                <%= link_to book.name, book, target: "_blank" %>
+            <ul class="shudan">
+                <% @my_booklists.each do |booklist| %>
+                    <section>
+                        <li class="col-sm-12">
+                            <div class="col-sm-10 shudan_title">
+                                <p><%= link_to booklist.title, booklist, target: "_blank" %></p>
+                                <p>书单标题</p>
                             </div>
-                            <div class="author">
-                                <%= "作者: #{book.author}" %>
+                            <div class="col-sm-1">
+                                <p>99</p>
+                                <p>本书</p>
                             </div>
-                            <div class="rating">
-                                <% get_rating_data(book) %>
-                                <%= "评分: (#{@rating_counts}人评价) #{@avg_rating}" %>
+                            <div class="col-sm-1">
+                                <p>100</p>
+                                <p><%= link_to "关注", '#', class: "btn btn-primary btn-xs" %></p>
                             </div>
-                        </div>
-                        <div class="bookshelf col-sm-3">
-                            <%= render 'shared/follow_book_form', object: book %>
-                        </div>
-                    </li></section>
+                        </li>
+                    </section>
                 <% end %>
             </ul>
             <div style="text-align:right;">
-                <%= will_paginate @books, previous_label: '<< 上一页', next_label: '下一页 >>' %>
+                <%= will_paginate @my_booklists, previous_label: '<< 上一页', next_label: '下一页 >>' %>
             </div>
         </aside>
     </div>

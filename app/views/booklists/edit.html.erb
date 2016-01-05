@@ -1,0 +1,26 @@
+<% provide(:title, "编辑推书单") %>
+<h1>编辑推书单</h1>
+<div class="row" style="margin-top:50px;">
+    <div class="col-md-6 col-md-offset-3 form-horizontal">
+        <%= form_for(@booklist) do |f| %>
+            <%= render 'shared/error_messages', object: f.object %>
+            <div class="form-group">
+                <%= f.label :title, "标题:", class: "col-sm-2 control-label" %>
+                <div class="col-sm-10">
+                    <%= f.text_field :title, class: "form-control" %>
+                </div>
+            </div>
+            <div class="form-group">
+                <%= f.label :desc, "简介:", class: "col-sm-2 control-label" %>
+                <div class="col-sm-10">
+                    <%= f.text_area :desc, class: "form-control", rows: "5" %>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-6">
+                    <%= f.submit "保存修改", class: "btn btn-large btn-primary btn-block" %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

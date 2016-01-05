@@ -1,2 +1,1 @@
 $("#follow_book<%= @book.id %>_form").html("<%= escape_javascript(render('shared/unfollow_book', object: @book)) %>")
-$("#shelfbooks_num").html('<%= current_user.books.count %>')

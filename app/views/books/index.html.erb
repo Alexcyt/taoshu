@@ -2,7 +2,7 @@
 <h1>所有书籍</h1>
 
 <div class="row">
-    <div class="my_pagination col-md-10 col-md-offset-1">
+    <div class="my_pagination col-md-10 col-md-offset-1" style="text-align:right;">
         <%= will_paginate @books, previous_label: '<< 上一页', next_label: '下一页 >>' %>
     </div>
     <ul class="booklist">
@@ -21,7 +21,8 @@
                         <%= "作者: #{book.author}" %>
                     </div>
                     <div class="rating">
-                        <%= "评分: (0人评价) 0.0" %>
+                        <% get_rating_data(book) %>
+                        <%= "评分: (#{@rating_counts}人评价) #{@avg_rating}" %>
                     </div>
                 </div>
                 <div class="bookshelf col-sm-3">
@@ -30,7 +31,7 @@
             </li>
         <% end %>
     </ul>
-    <div class="my_pagination col-md-10 col-md-offset-1">
+    <div class="my_pagination col-md-10 col-md-offset-1" style="text-align:right;">
         <%= will_paginate @books, previous_label: '<< 上一页', next_label: '下一页 >>' %>
     </div>
 </div>
