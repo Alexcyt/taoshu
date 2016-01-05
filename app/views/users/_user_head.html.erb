@@ -1,0 +1,12 @@
+<div class="col-sm-6">
+    <section>
+        <%= gravatar_for @user, size: 80 %>
+    </section>
+    <section>
+        <h1><%= @user.name %></h1>
+    </section>
+</div>
+<div class="col-sm-6 focus_button">
+    <%= render 'shared/follow_person', object: @user %>
+</div>
+

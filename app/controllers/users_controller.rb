@@ -53,6 +53,21 @@ class UsersController < ApplicationController
     @my_booklists = @user.booklists.paginate(page: params[:page], per_page: 10)
   end
 
+  def my_focus_booklists
+    @user = User.find(params[:id])
+    @my_focus_booklists = @user.my_focus_booklists.paginate(page: params[:page], per_page: 10)
+  end
+
+  def fans
+    @user = User.find(params[:id])
+    @fans = @user.fans.paginate(page: params[:page], per_page: 10)
+  end
+
+  def followeds
+    @user = User.find(params[:id])
+    @followeds = @user.followeds.paginate(page: params[:page], per_page: 10)
+  end
+
   private
 
     def user_params

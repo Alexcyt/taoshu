@@ -20,7 +20,7 @@
                 </div>
             <% else %>
                 <div class="col-sm-3 col-sm-offset-9">
-                    <%= link_to "关注书单", '#', class: "btn btn-primary btn-small" %>
+                    <%= render :partial => 'shared/focus_booklist', :locals => { :obj => @booklist, :button_type => "small" } %>
                 </div>
             <% end %>
         </div>
@@ -37,14 +37,14 @@
                         <%= link_to "#{@booklist.user.name}", @booklist.user %>
                     </div>
                     <div class="col-xs-8">
-                        <%= link_to "关注Ta", '#', class: "btn btn-success btn-small" %>
+                        <%= render 'shared/follow_person', object: @booklist.user %>
                     </div>
                 </div>
             </div>
         </div>
         <div class="panel panel-primary">
             <div class="panel-body">
-                本书单共有99本书, 100名关注者
+                本书单共有99本书, <%= @booklist.follow_booklists.length %>名关注者
             </div>
         </div>
         <div class="panel panel-primary">

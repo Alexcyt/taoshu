@@ -1,0 +1,22 @@
+<div id=<%= "follow_person#{object.id}_form" %>>
+    <% if signed_in? %>
+        <% if current_user?(object) %>
+            <%= link_to "关注Ta", '#', class: "btn btn-success btn-small", disabled: true %>
+        <% else %>
+            <% if current_user.have_followed_person?(object) %>
+                <%= form_for(current_user.follow_users.find_by(followed_id: object.id),
+                             html: { method: :delete }, remote: true) do |f| %>
+                    <%= f.submit "取消关注", class: "btn btn-small btn-danger" %>
+                <% end %>
+            <% else %>
+                <%= form_for(current_user.follow_users.build(followed_id: object.id), remote: true) do |f| %>
+                    <%= f.hidden_field :followed_id %>
+                    <%= f.submit "关注Ta", class: "btn btn-small btn-success" %>
+                <% end %>
+            <% end %>
+        <% end %>
+    <% else %>
+        <% session[:back_to] = request.fullpath %>
+        <%= link_to "关注Ta", follow_users_path, method: :post, class: "btn btn-small btn-success" %>
+    <% end %>
+</div>

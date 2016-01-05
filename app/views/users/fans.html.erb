@@ -1,0 +1,48 @@
+<% provide(:title, @user.name) %>
+<div class="row">
+    <div class="user_head col-md-12">
+        <aside class="col-md-3">
+            <%= render 'user_head' %>
+        </aside>
+        <aside class="col-md-9">
+            <ul class="nav nav-pills user_menu">
+                <li><%= link_to "个人书架", shelfbooks_user_path(@user) %></li>
+                <li><%= link_to "我的书单", my_booklists_user_path(@user) %></li>
+                <li><%= link_to "关注书单", my_focus_booklists_user_path(@user) %></li>
+                <li class="active"><%= link_to "粉丝", fans_user_path(@user) %></li>
+                <li><%= link_to "关注", followeds_user_path(@user) %></li>
+            </ul>
+        </aside>
+    </div>
+    <div class="user_body">
+        <aside class="col-md-4">
+            <%= render 'user_left' %>
+        </aside>
+        <aside class="col-md-8">
+            <ul class="shudan">
+                <% @fans.each do |fan| %>
+                    <li class="col-sm-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-body">
+                                <div class="col-xs-4">
+                                    <%= link_to(fan, target: "_blank") do %>
+                                        <%= gravatar_for fan, size: 50 %>
+                                    <% end %>
+                                </div>
+                                <div class="col-xs-4">
+                                    <%= link_to fan.name, fan, target: "_blank" %>
+                                </div>
+                                <div class="col-xs-4" id=<%= "follow_person#{fan.id}_form" %>>
+                                    <%= render 'shared/follow_person', object: fan %>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                <% end %>
+            </ul>
+            <div style="text-align:right;">
+                <%= will_paginate @fans, previous_label: '<< 上一页', next_label: '下一页 >>' %>
+            </div>
+        </aside>
+    </div>
+</div>

@@ -7,8 +7,8 @@
         <aside class="col-md-9">
             <ul class="nav nav-pills user_menu">
                 <li><%= link_to "个人书架", shelfbooks_user_path(@user) %></li>
-                <li class="active"><%= link_to "我的书单", my_booklists_user_path(@user) %></li>
-                <li><%= link_to "关注书单", my_focus_booklists_user_path(@user) %></li>
+                <li><%= link_to "我的书单", my_booklists_user_path(@user) %></li>
+                <li class="active"><%= link_to "关注书单", my_focus_booklists_user_path(@user) %></li>
                 <li><%= link_to "粉丝", fans_user_path(@user) %></li>
                 <li><%= link_to "关注", followeds_user_path(@user) %></li>
             </ul>
@@ -20,7 +20,7 @@
         </aside>
         <aside class="col-md-8">
             <ul class="shudan">
-                <% @my_booklists.each do |booklist| %>
+                <% @my_focus_booklists.each do |booklist| %>
                     <section>
                         <li class="col-sm-12">
                             <div class="col-sm-9 shudan_title">
@@ -42,7 +42,7 @@
                 <% end %>
             </ul>
             <div style="text-align:right;">
-                <%= will_paginate @my_booklists, previous_label: '<< 上一页', next_label: '下一页 >>' %>
+                <%= will_paginate @my_focus_booklists, previous_label: '<< 上一页', next_label: '下一页 >>' %>
             </div>
         </aside>
     </div>

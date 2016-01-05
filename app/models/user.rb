@@ -18,6 +18,14 @@ class User < ActiveRecord::Base
 
   has_many :booklists, dependent: :destroy
 
+  has_many :follow_users, foreign_key: "follower_id", dependent: :destroy
+  has_many :reverse_follow_users, foreign_key: "followed_id", class_name: "FollowUser", dependent: :destroy
+  has_many :fans, through: :reverse_follow_users, source: :follower
+  has_many :followeds, through: :follow_users
+
+  has_many :follow_booklists, dependent: :destroy
+  has_many :my_focus_booklists, through: :follow_booklists, source: :booklist
+
   def User.new_remember_token
     SecureRandom.urlsafe_base64
   end
@@ -57,6 +65,35 @@ class User < ActiveRecord::Base
 
   def my_rating(book)
     self.ratings.find_by(book_id: book.id).score
+  end
+
+  # 关注用户
+
+  def have_followed_person?(user)
+    self.follow_users.find_by(followed_id: user.id)
+  end
+
+  def follow_person!(user)
+    self.follow_users.create!(followed_id: user.id)
+  end
+
+  def unfollow_person!(user)
+    self.follow_users.find_by(followed_id: user.id).destroy
+  end
+
+
+  # 关注书单
+
+  def have_focused_booklist?(booklist)
+    self.follow_booklists.find_by(booklist_id: booklist.id)
+  end
+
+  def focus_booklist!(booklist)
+    self.follow_booklists.create!(booklist_id: booklist.id)
+  end
+
+  def unfocus_booklist!(booklist)
+    self.follow_booklists.find_by(booklist_id: booklist.id).destroy
   end
 
   private

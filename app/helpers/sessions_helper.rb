@@ -50,6 +50,9 @@ module SessionsHelper
     if session[:back_to]
       redirect_to(session[:back_to])
       session.delete(:back_to)
+      if session[:return_to]
+        session.delete(:return_to)
+      end
     else
       redirect_to(session[:return_to] || default)
       session.delete(:return_to)

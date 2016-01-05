@@ -40,7 +40,7 @@ class BooklistsController < ApplicationController
     @user = @booklist.user
     @booklist.destroy
     flash[:success] = "成功删除书单!"
-    redirect_to @user
+    redirect_to my_booklists_user_path(@user)
   end
 
   private

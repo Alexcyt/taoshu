@@ -1,0 +1,3 @@
+$("#focus_booklist<%= @booklist.id %>_form").html("<%= escape_javascript(render(
+    :partial => 'shared/focus_booklist', :locals => { :obj => @booklist , :button_type => @button_type })) %>")
+

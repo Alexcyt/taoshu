@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     member do
       get :shelfbooks
       get :my_booklists
+      get :followeds
+      get :fans
+      get :my_focus_booklists
     end
   end
   get '/signup' => 'users#new'
@@ -23,6 +26,10 @@ Rails.application.routes.draw do
   resources :ratings, only: [:create, :update]
 
   resources :booklists
+
+  resources :follow_users, only: [:create, :destroy]
+
+  resources :follow_booklists, only: [:create, :destroy]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

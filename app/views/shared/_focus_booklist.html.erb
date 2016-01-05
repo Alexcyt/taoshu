@@ -1,0 +1,26 @@
+<div id=<%= "focus_booklist#{obj.id}_form" %>>
+    <% if signed_in? %>
+        <% if current_user?(obj.user) %>
+            <% if button_type.eql?("xs") %>
+                <%= link_to "关注书单", '#', class: "btn btn-primary btn-xs", disabled: true %>
+            <% end %>
+        <% else %>
+            <% if current_user.have_focused_booklist?(obj) %>
+                <%= form_for(current_user.follow_booklists.find_by(booklist_id: obj.id),
+                             html: { method: :delete }, remote: true) do |f| %>
+                    <%= f.hidden_field :btn_type, value: "#{button_type}" %>
+                    <%= f.submit "取消关注", class: "btn btn-danger btn-#{button_type}" %>
+                <% end %>
+            <% else %>
+                <%= form_for(current_user.follow_booklists.build(booklist_id: obj.id), remote: true) do |f| %>
+                    <%= f.hidden_field :booklist_id %>
+                    <%= f.hidden_field :btn_type, value: "#{button_type}" %>
+                    <%= f.submit "关注书单", class: "btn btn-primary btn-#{button_type}" %>
+                <% end %>
+            <% end %>
+        <% end %>
+    <% else %>
+        <% session[:back_to] = request.fullpath %>
+        <%= link_to "关注书单", follow_booklists_path, method: :post, class: "btn btn-#{button_type} btn-primary" %>
+    <% end %>
+</div>

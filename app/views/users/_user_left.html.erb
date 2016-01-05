@@ -1,0 +1,22 @@
+<section>
+    <%= link_to shelfbooks_user_path(@user), class: "col-sm-3" do %>
+        <strong><%= @user.books.count %></strong>
+        <span>我的书架</span>
+    <% end %>
+    <%= link_to my_focus_booklists_user_path(@user), class: "col-sm-3" do %>
+        <strong><%= @user.my_focus_booklists.length %></strong>
+        <span>关注书单</span>
+    <% end %>
+    <%= link_to fans_user_path(@user), class: "col-sm-3" do %>
+        <strong><%= @user.fans.length %></strong>
+        <span>粉丝数</span>
+    <% end %>
+    <%= link_to followeds_user_path(@user), class: "col-sm-3" do %>
+        <strong><%= @user.followeds.length %></strong>
+        <span>关注数</span>
+    <% end %>
+</section>
+<section>
+    <%= link_to "新建书单", new_booklist_path, class: "btn btn-small btn-primary btn-block" %>
+</section>
+

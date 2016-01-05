@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160104102610) do
+ActiveRecord::Schema.define(version: 20160105100506) do
 
   create_table "booklists", force: :cascade do |t|
     t.integer  "user_id"
@@ -32,6 +32,28 @@ ActiveRecord::Schema.define(version: 20160104102610) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "follow_booklists", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "booklist_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "follow_booklists", ["booklist_id"], name: "index_follow_booklists_on_booklist_id"
+  add_index "follow_booklists", ["user_id", "booklist_id"], name: "index_follow_booklists_on_user_id_and_booklist_id", unique: true
+  add_index "follow_booklists", ["user_id"], name: "index_follow_booklists_on_user_id"
+
+  create_table "follow_users", force: :cascade do |t|
+    t.integer  "follower_id"
+    t.integer  "followed_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "follow_users", ["followed_id"], name: "index_follow_users_on_followed_id"
+  add_index "follow_users", ["follower_id", "followed_id"], name: "index_follow_users_on_follower_id_and_followed_id", unique: true
+  add_index "follow_users", ["follower_id"], name: "index_follow_users_on_follower_id"
 
   create_table "ratings", force: :cascade do |t|
     t.integer  "user_id"
