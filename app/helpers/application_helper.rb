@@ -9,4 +9,8 @@ module ApplicationHelper
     end
   end
 
+  def beijing_time(timestamp)
+    timestamp.strftime('%Y-%m-%d %H:%M:%S')
+  end
+
 end

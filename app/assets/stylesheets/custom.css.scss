@@ -239,3 +239,19 @@ div.rest_booklists {
     border-top: 1px solid #DDD;
   }
 }
+
+
+div.panel-info {
+  border-color: #3cf;
+  border-width: 2px;
+  padding: 0px;
+}
+
+div.panel-success {
+  border-color: #36B055;
+  border-width: 1px;
+  padding: 0px;
+  div.panel {
+    margin: 0px;
+  }
+}

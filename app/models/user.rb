@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
   has_many :follow_booklists, dependent: :destroy
   has_many :my_focus_booklists, through: :follow_booklists, source: :booklist
 
+  has_many :comments, dependent: :destroy
+
   def User.new_remember_token
     SecureRandom.urlsafe_base64
   end
@@ -94,6 +96,17 @@ class User < ActiveRecord::Base
 
   def unfocus_booklist!(booklist)
     self.follow_booklists.find_by(booklist_id: booklist.id).destroy
+  end
+
+
+  # 书评
+
+  def make_comment!(book, title, content)
+    self.comments.create!(book_id: book.id, title: title, content: content)
+  end
+
+  def cancel_comment!(commment)
+    self.comments.find(commment.id).destroy
   end
 
   private

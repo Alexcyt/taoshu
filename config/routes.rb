@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   resources :follow_users, only: [:create, :destroy]
 
   resources :follow_booklists, only: [:create, :destroy]
+
+  resources :comments, only: [:show, :index, :create, :destroy]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,5 +1,5 @@
 class BooklistsController < ApplicationController
-  before_action :signed_in_user, only: [:create, :edit, :update, :destroy]
+  before_action :signed_in_user, only: [:new, :create, :edit, :update, :destroy]
   before_action :is_booklist_owner, only: [:edit, :update, :destroy]
 
   def index

@@ -1,0 +1,126 @@
+<div id="comment_part">
+    <% i = 0 %>
+    <% if signed_in? %>
+        <% i += 1 %>
+        <div class="col-sm-6">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <%= form_for(current_user.comments.build(book_id: @book.id), remote: true) do |f| %>
+                        <div class="form-group">
+                            <div class="col-xs-7" style="text-align:left;">
+                                <%= link_to current_user do %>
+                                    <%= gravatar_for current_user, size: 50 %>
+                                <% end %>
+                                <div>
+                                    <p><strong><%= current_user.name %></strong></p>
+                                </div>
+                            </div>
+                            <div class="col-xs-5" style="text-align:right" id="commit_comment">
+                                <%= link_to "发表书评", '#', class: "btn btn-primary btn-small", disabled: true %>
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-12" style="margin-top:20px;">
+                            <%= f.text_field :title, class: "form-control", placeholder: "标题, 不超过30字",
+                                onfocus: "checktitle(this)", onkeyup: "checktitle(this)" %>
+                        </div>
+                        <div class="form-group col-xs-12">
+                            <%= f.text_area :content, class: "form-control", rows: "5",
+                                placeholder: "评语, 最少不少于30字, 最多不超过300字", onfocus: "checkcontent(this)", onkeyup: "checkcontent(this)" %>
+                        </div>
+                        <%= f.hidden_field :book_id %>
+                        <div id="left_length" class="col-xs-12">
+                        </div>
+                        <script type="text/javascript">
+                            var t_len = 0;
+                            var c_len = 0;
+
+                            function checklength()
+                            {
+                                var str = "";
+                                if (t_len < 30 && t_len >= 0) {
+                                    str = str.concat("<p>标题: 还可以输入");
+                                    str = str.concat(30-t_len);
+                                    str = str.concat("个字</p>");
+                                }
+                                else if (t_len > 30)
+                                    str = str.concat("<p>标题: 字数超过30</p>");
+                                if (c_len < 30 && c_len >= 0) {
+                                    str = str.concat("<p>评语: 至少还要输入");
+                                    str = str.concat(30-c_len);
+                                    str = str.concat("个字</p>");
+                                }
+                                else if (c_len >= 30 && c_len < 300) {
+                                    str = str.concat("<p>评语: 还可以输入");
+                                    str = str.concat(300-c_len);
+                                    str = str.concat("个字</p>");
+                                }
+                                else if (c_len > 300)
+                                    str = str.concat("<p>评语: 字数超过300</p>");
+                                document.getElementById("left_length").innerHTML = str;
+                                if (t_len > 0 && t_len <= 30 && c_len >= 30 && c_len <= 300)
+                                    document.getElementById("commit_comment").innerHTML =
+                                        '<input name="commit" value="发表书评" class="btn btn-primary btn-small" type="submit">';
+                                else
+                                    document.getElementById("commit_comment").innerHTML =
+                                        '<a class="btn btn-primary btn-small" disabled="disabled" href="#">发表书评</a>'
+                            }
+
+                            function checktitle(id)
+                            {
+                                t_len = id.value.length;
+                                checklength();
+                            }
+
+                            function checkcontent(id)
+                            {
+                                c_len = id.value.length;
+                                checklength();
+                            }
+                        </script>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    <% end %>
+    <% @book_comments.each do |comment| %>
+        <% if i % 2 == 0 %>
+            <div class="col-sm-12"></div>
+        <% end %>
+        <div class="col-sm-6">
+            <% i += 1 %>
+            <div class="panel panel-success">
+                <div class="panel-body">
+                    <% tmp_user = comment.user %>
+                    <div style="text-align:left;" class="col-xs-8">
+                        <%= link_to tmp_user do %>
+                            <%= gravatar_for tmp_user, size: 50 %>
+                        <% end %>
+                        <div>
+                            <p><strong><%= tmp_user.name %></strong></p>
+                            <p><small><%= beijing_time(comment.created_at) %></small></p>
+                        </div>
+                    </div>
+                    <div style="text-align:right;padding-left:0px;" class="col-xs-4">
+                        <% if signed_in? && current_user?(comment.user) %>
+                            <%= form_for(current_user.comments.find(comment.id), html: { method: :delete }, remote: true) do |f| %>
+                                <%= f.submit "撤销书评", class: "btn btn-small btn-danger" %>
+                            <% end %>
+                        <% end %>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-body">
+                                <p><strong><%= comment.title %></strong></p>
+                                <p><%= comment.content %></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% end %>
+    <div class="col-md-12" style="text-align:right;">
+        <%= will_paginate @book_comments, previous_label: '<< 上一页', next_label: '下一页 >>' %>
+    </div>
+</div>
+
