@@ -1,10 +1,10 @@
 namespace :db do
   desc "generate user data"
   task get_user_data: :environment do
-    #make_users
-    #make_books
-    #make_booklists
-    #make_fans
+    make_users
+    make_books
+    make_booklists
+    make_fans
     make_follow_booklist
   end
 end
@@ -81,7 +81,7 @@ def make_follow_booklist
       if b.user == u
         next
       end
-      if b.id%10 == u.id%10
+      if b.id%7 == u.id%7
         u.focus_booklist!(b)
       end
     end
