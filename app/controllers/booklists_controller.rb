@@ -8,6 +8,8 @@ class BooklistsController < ApplicationController
 
   def show
     @booklist = Booklist.find(params[:id])
+    session[:cur_booklist] = @booklist.id
+    @list_books = @booklist.list_books.paginate(page: params[:page], per_page: 10)
   end
 
   def new

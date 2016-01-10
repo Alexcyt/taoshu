@@ -255,3 +255,31 @@ div.panel-success {
     margin: 0px;
   }
 }
+
+ul.list_book{
+  list-style: none;
+  padding-left: 20px;
+  section{
+    border: 2px solid #DDD;
+    margin: 20px 0;
+    li {
+      padding-top: 20px;
+      padding-bottom: 10px;
+      background-color: #f5f5f5;
+      div.book_info{
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background-color: white;
+      }
+      div.my_desc {
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 10px;
+      }
+      div.foot_part{
+        margin-top: 10px;
+        color: #727272;
+      }
+    }
+  }
+}

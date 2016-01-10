@@ -32,6 +32,8 @@ Rails.application.routes.draw do
   resources :follow_booklists, only: [:create, :destroy]
 
   resources :comments, only: [:show, :index, :create, :destroy]
+
+  resources :list_books, only: [:new, :create, :destroy]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

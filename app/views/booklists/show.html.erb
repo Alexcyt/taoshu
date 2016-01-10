@@ -11,7 +11,7 @@
                         <%= link_to "编辑推书单", edit_booklist_path(@booklist), class: "btn btn-primary btn-small" %>
                     </div>
                     <div class="btn-group">
-                        <%= link_to "添加书籍", '#', class: "btn btn-primary btn-small" %>
+                        <%= link_to "添加书籍", new_list_book_path, class: "btn btn-primary btn-small" %>
                     </div>
                     <div class="btn-group">
                         <%= link_to "删除推书单", @booklist, class: "btn btn-danger btn-small", method: :delete,
@@ -24,8 +24,61 @@
                 </div>
             <% end %>
         </div>
-        <div>
-            暂时没有书籍
+        <div class="col-sm-12">
+            <ul class="list_book">
+                <% @list_books.each do |list_book| %>
+                    <% book = list_book.book %>
+                    <section>
+                        <li class="col-sm-12">
+                            <div class="col-xs-12 book_info">
+                                <div class="col-xs-2">
+                                    <%= link_to(book, target: "_blank") do %>
+                                        <%= image_tag book.cover, width: "40", height: "50", alt: book.name %>
+                                    <% end %>
+                                </div>
+                                <div class="col-xs-7">
+                                    <div>
+                                        <%= link_to book.name, book, target: "_blank" %>
+                                    </div>
+                                    <div>
+                                        <%= "作者: #{book.author}" %>
+                                    </div>
+                                    <div>
+                                        <% myScore = list_book.score %>
+                                        <%= "推荐指数: " %>
+                                        <% for i in 1..5 %>
+                                            <% if i*2 <= myScore %>
+                                                <i style="color: rgb(77, 123, 214);" class="fa fa-star"></i>
+                                            <% else %>
+                                                <i style="color: rgb(204, 204, 204);" class="fa fa-star"></i>
+                                            <% end %>
+                                        <% end %>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <%= render 'shared/follow_book_form', object: book %>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 my_desc">
+                                <%= "推荐语: " %>
+                                <small><%= list_book.desc %></small>
+                            </div>
+                            <div class="col-xs-12 foot_part">
+                                <div class="col-xs-6"><%= "加入时间: #{beijing_time(list_book.created_at)}" %></div>
+                                <% if signed_in? && current_user?(@booklist.user) %>
+                                    <div class="col-xs-6" style="text-align: right" >
+                                        <%= link_to "删除", list_book, class: "btn btn-danger btn-xs", method: :delete,
+                                            data: { confirm: "确定从书单中删除该书?" } %>
+                                    </div>
+                                <% end %>
+                            </div>
+                        </li>
+                    </section>
+                <% end %>
+            </ul>
+        </div>
+        <div style="text-align:right;padding-right:15px;">
+            <%= will_paginate @list_books, previous_label: '<< 上一页', next_label: '下一页 >>' %>
         </div>
     </div>
     <div class="col-md-3">
@@ -33,10 +86,10 @@
             <div class="panel-heading">书单作者</div>
             <div class="panel-body">
                 <div style="text-align: center;">
-                    <div class="col-xs-4">
+                    <div class="col-xs-5">
                         <%= link_to "#{@booklist.user.name}", @booklist.user %>
                     </div>
-                    <div class="col-xs-8">
+                    <div class="col-xs-7">
                         <%= render 'shared/follow_person', object: @booklist.user %>
                     </div>
                 </div>

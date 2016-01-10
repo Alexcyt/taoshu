@@ -24,12 +24,12 @@
                     <li class="col-sm-6">
                         <div class="panel panel-primary">
                             <div class="panel-body">
-                                <div class="col-xs-4">
+                                <div class="col-xs-3">
                                     <%= link_to(fan, target: "_blank") do %>
                                         <%= gravatar_for fan, size: 50 %>
                                     <% end %>
                                 </div>
-                                <div class="col-xs-4">
+                                <div class="col-xs-5">
                                     <%= link_to fan.name, fan, target: "_blank" %>
                                 </div>
                                 <div class="col-xs-4" id=<%= "follow_person#{fan.id}_form" %>>

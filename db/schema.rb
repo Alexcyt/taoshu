@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160109061403) do
+ActiveRecord::Schema.define(version: 20160110080611) do
 
   create_table "booklists", force: :cascade do |t|
     t.integer  "user_id"
@@ -29,8 +29,13 @@ ActiveRecord::Schema.define(version: 20160109061403) do
     t.string   "cover"
     t.string   "source"
     t.string   "desc"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "words"
+    t.string   "chapters"
+    t.string   "src_web"
+    t.string   "last_time"
+    t.string   "last_chapter"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -67,6 +72,19 @@ ActiveRecord::Schema.define(version: 20160109061403) do
   add_index "follow_users", ["followed_id"], name: "index_follow_users_on_followed_id"
   add_index "follow_users", ["follower_id", "followed_id"], name: "index_follow_users_on_follower_id_and_followed_id", unique: true
   add_index "follow_users", ["follower_id"], name: "index_follow_users_on_follower_id"
+
+  create_table "list_books", force: :cascade do |t|
+    t.integer  "book_id"
+    t.integer  "booklist_id"
+    t.integer  "score"
+    t.string   "desc"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "list_books", ["book_id", "booklist_id"], name: "index_list_books_on_book_id_and_booklist_id", unique: true
+  add_index "list_books", ["book_id"], name: "index_list_books_on_book_id"
+  add_index "list_books", ["booklist_id"], name: "index_list_books_on_booklist_id"
 
   create_table "ratings", force: :cascade do |t|
     t.integer  "user_id"

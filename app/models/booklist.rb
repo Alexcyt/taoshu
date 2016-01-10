@@ -8,4 +8,6 @@ class Booklist < ActiveRecord::Base
   belongs_to :user
 
   has_many :follow_booklists, dependent: :destroy
+
+  has_many :list_books, dependent: :destroy
 end

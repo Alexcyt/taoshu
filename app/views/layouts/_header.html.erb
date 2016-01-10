@@ -1,7 +1,12 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <%= link_to "淘书网", root_path, class: "navbar-brand" %>
+            <%= link_to root_path, class: "navbar-brand", style: "padding:0px;" do %>
+                <div style="text-align:left:">
+                    <%= image_tag 'logo.png', size: "50" %>
+                    淘书网
+                </div>
+            <% end %>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-right">
