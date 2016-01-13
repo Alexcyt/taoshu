@@ -73,9 +73,9 @@
                     var starlists = allstars.getElementsByTagName("i");
                     for (var i = 0; i < starlists.length; i++) {
                         if (i < index)
-                            starlists[i].style = "color: rgb(97, 177, 0);";
+                            starlists[i].setAttribute("style", "color: rgb(97, 177, 0);");
                         else
-                            starlists[i].style="color: rgb(204, 204, 204);";
+                            starlists[i].setAttribute("style", "color: rgb(204, 204, 204);");
                     }
                 }
 
@@ -84,7 +84,7 @@
                     var allstars = document.getElementById("myrate");
                     var starlists = allstars.getElementsByTagName("i");
                     for (var i = 0; i < starlists.length; i++)
-                        starlists[i].style = "color: rgb(204, 204, 204);";
+                        starlists[i].setAttribute("style", "color: rgb(204, 204, 204);");
                 }
 
                 function toblue(index)
@@ -93,9 +93,9 @@
                     var starlists = allstars.getElementsByTagName("i");
                     for (var i = 0; i < starlists.length; i++) {
                         if (i < index)
-                            starlists[i].style = "color: rgb(77, 123, 214);";
+                            starlists[i].setAttribute("style" ,"color: rgb(77, 123, 214);");
                         else
-                            starlists[i].style="color: rgb(204, 204, 204);";
+                            starlists[i].setAttribute("style", "color: rgb(204, 204, 204);");
                     }
                 }
 
@@ -105,9 +105,9 @@
                     var starlists = allstars.getElementsByTagName("i");
                     for (var i = 0; i < starlists.length; i++) {
                         if (i < index)
-                            starlists[i].style = "color: rgb(97, 177, 0);";
+                            starlists[i].setAttribute("style", "color: rgb(97, 177, 0);");
                         else
-                            starlists[i].style = "color: rgb(204, 204, 204)";
+                            starlists[i].setAttribute("style", "color: rgb(204, 204, 204);");
                         starlists[i].removeAttribute("onmouseover");
                         starlists[i].removeAttribute("onmouseout");
                     }
